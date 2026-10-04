@@ -11,3 +11,10 @@
     to   { transform: translateX(-50%); }
   }
 }
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

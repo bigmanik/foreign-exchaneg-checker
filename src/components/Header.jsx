@@ -1,4 +1,4 @@
-import React from "react";
+
 import logo from "../assets/logo.svg";
 
 const PAIRS = [
@@ -15,15 +15,15 @@ function Header() {
   return (
     <header className="bg-black font-mono text-white">
       {/* top bar */}
-      <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 sm:px-6 sm:py-4">
+        <div className="flex items-center gap-2 sm:gap-3">
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#c9f227]">
             <img src={logo} alt="" className="h-4 w-4" />
           </span>
           <span className="text-sm font-bold tracking-[0.15em]">FX_CHECKER</span>
         </div>
 
-        <p className="text-[11px] tracking-[0.18em] text-white/45">
+        <p className="text-[7px] tracking-[0.18em] text-white/45 sm:block lg:text-[11px]">
           55 CURRENCIES <span className="mx-1.5">·</span> EOD
           <span className="mx-1.5">·</span> ECB DATA
         </p>
