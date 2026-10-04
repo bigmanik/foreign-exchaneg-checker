@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRate } from "../services/exchangeRateService";
+import { getRate } from "../services/exchangeRateServices";
 
 /**
  * Watches (from, to) and keeps the live rate + converted amount.

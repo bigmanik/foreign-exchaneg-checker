@@ -3,7 +3,7 @@ import CurrencyInput from "./CurrencyInput";
 import SwapButton from "./SwapButton";
 import RateLine from "./RateLine";
 import ConverterActions from "./ConverterActions";
-import { useExchangeRate } from "../hooks/useExchangeRate";
+import { useExchangeRate } from "../hooks/useExchangeRates";
 import { formatAmount } from "../utils/format";
 
 function CurrencyConverter() {

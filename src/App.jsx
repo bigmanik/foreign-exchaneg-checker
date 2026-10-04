@@ -1,8 +1,8 @@
 
 import Header from './components/Header'
-import CurrencyConverter from './components/CurrencyConverter'
+// import CurrencyConverter from './components/CurrencyConverter'
 
-import RateChart from './components/RateChart'
+
 import RateChecker from './components/RateChecker'
 
 
