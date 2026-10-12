@@ -1,5 +1,14 @@
 import currencies from "../data/currencies";
 
+// Adds thousand separators for display only: "1000.5" -> "1,000.5"
+function formatWithCommas(str) {
+  if (str === "" || str == null) return "";
+  const clean = String(str).replace(/,/g, "");
+  const [int, dec] = clean.split(".");
+  const withCommas = int.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return dec !== undefined ? `${withCommas}.${dec}` : withCommas;
+}
+
 function CurrencyInput({
   label,
   value,
@@ -20,12 +29,13 @@ function CurrencyInput({
         <input
           type="text"
           inputMode="decimal"
-          value={value ?? ""}
+          value={formatWithCommas(value)}
           readOnly={readOnly}
           onChange={(e) => {
-            // Only allow digits, commas, dots
-            if (/^[\d,]*\.?\d*$/.test(e.target.value)) {
-              onValueChange?.(e.target.value);
+            // Strip commas first, then allow only digits and one dot
+            const raw = e.target.value.replace(/,/g, "");
+            if (/^\d*\.?\d*$/.test(raw)) {
+              onValueChange?.(raw);
             }
           }}
           placeholder="0"
@@ -34,7 +44,7 @@ function CurrencyInput({
         />
 
         {/* Currency selector with flag */}
-        <div className="relative flex items-center gap-2 rounded-lg bg-[#26262b] px-3 py-2">
+        {/* <div className="relative flex items-center gap-2 rounded-lg bg-[#26262b] px-3 py-2">
           {current && (
             <img src={current.flag} alt={current.code} className="h-4 w-6 rounded-sm object-cover" />
           )}
@@ -50,7 +60,34 @@ function CurrencyInput({
             ))}
           </select>
           <span className="pointer-events-none text-gray-500">▾</span>
-        </div>
+        </div> */}
+        <div className="relative flex items-center gap-2 rounded-lg bg-[#26262b] px-3 py-2">
+  {current && <img src={current.flag} alt={current.code} className="h-4 w-6 rounded-sm object-cover" />}
+  <span className="font-mono text-sm text-white">{currency}</span>
+  <span className="text-gray-500">▾</span>
+
+  {/* <select
+    value={currency}
+    onChange={(e) => onCurrencyChange(e.target.value)}
+    className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+  >
+    {currencies.map((c) => (
+      <option key={c.code} value={c.code}>{c.code}</option>
+    ))}
+  </select> */}
+  <select
+  value={currency}
+  onChange={(e) => onCurrencyChange(e.target.value)}
+  className="absolute inset-0 h-full w-full cursor-pointer opacity-0 [color-scheme:dark]"
+>
+  {currencies.map((c) => (
+    <option key={c.code} value={c.code} className="bg-[#1b1b1e] text-white">
+      {c.code}
+    </option>
+  ))}
+</select>
+</div>
+
       </div>
     </div>
   );

@@ -6,8 +6,8 @@ const currencies = [
   { code: "CHF", name: "Swiss Franc",      flag: "/src/assets/flags/ch.webp" },
   { code: "AUD", name: "Australian Dollar",flag: "/src/assets/flags/au.webp" },
   { code: "CAD", name: "Canadian Dollar",  flag: "/src/assets/flags/ca.webp" },
-  {code: "NGN",  name: "Nigerian Naira",     flag: "/src/assets/flags/ng.webp" },
-
+  { code: "CNY", name: "Chinese Yuan",     flag: "/src/assets/flags/cn.webp" },
+ 
   // ...add the rest of yours
 ];
 

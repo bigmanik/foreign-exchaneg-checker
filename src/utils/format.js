@@ -9,6 +9,10 @@ export function formatAmount(value) {
 }
 
 // Formats a rate for display: 0.85302 → "0.8530" (4 decimals like the design)
+// export function formatRate(rate) {
+//   return Number(rate).toFixed(4);
+// }
 export function formatRate(rate) {
-  return Number(rate).toFixed(4);
+  const num = Number(rate);
+  return Number.isFinite(num) ? num.toFixed(4) : "—";
 }

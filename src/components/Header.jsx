@@ -17,10 +17,12 @@ function Header() {
       {/* top bar */}
       <div className="flex items-center justify-between border-b border-white/10 px-6 py-4 sm:px-6 sm:py-4">
         <div className="flex items-center gap-2 sm:gap-3">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#c9f227]">
-            <img src={logo} alt="" className="h-4 w-4" />
-          </span>
-          <span className="text-sm font-bold tracking-[0.15em]">FX_CHECKER</span>
+          {/* <span className="flex h-16 w-16 items-center justify-center rounded-md ">
+            <img src={logo} alt="" className="size-30" />
+          </span> */}
+            <img src={logo} alt="" className="size-22" />
+          {/* <span className="text-sm font-bold tracking-[0.15em]">FX_CHECKER</span> bg-[#c9f227] */}
+        
         </div>
 
         <p className="text-[7px] tracking-[0.18em] text-white/45 sm:block lg:text-[11px]">

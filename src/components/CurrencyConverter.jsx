@@ -39,8 +39,8 @@ function CurrencyConverter() {
         />
       </div>
 
-      {/* Row 2: rate line + action buttons */}
-      <div className="mt-5 flex items-center justify-between">
+      {/* Row 2: dashed divider + rate line + action buttons */}
+      <div className="-mx-9 mt-5 flex items-center justify-between border-t border-dashed border-white/10 px-9 pt-5">
         <RateLine from={fromCurrency} to={toCurrency} rate={rate} loading={loading} error={error} />
         <ConverterActions
           from={fromCurrency}
