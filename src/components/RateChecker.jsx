@@ -64,27 +64,28 @@ function RateChecker() {
           onLog={handleLog}
         />
       </div>
-      <Tabs favourites={favourites} log={log} />
-
-      <div className="mt-8">
+    <Tabs
+  favourites={favourites}
+  log={log}
+  history={
+    <>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <RateStats history={history} />
-      </div>
-
-      <div className="mt-4 flex justify-end">
         <RangeSelector range={range} onChange={setRange} />
       </div>
 
       <div className="mt-4">
         {loadingHistory || history.length < 2 ? (
-          <div className="flex h-80 items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/70 font-mono text-sm text-zinc-500 animate-pulse">
+          <div className="flex h-80 animate-pulse items-center justify-center rounded-2xl border border-zinc-800 bg-zinc-900/70 font-mono text-sm text-zinc-500">
             LOADING {fromCurrency}/{toCurrency} · {range}
           </div>
         ) : (
           <HistoryChart history={history} pair={pair} />
         )}
       </div>
-
-      {/* <Tabs favourites={favourites} log={log} /> */}
+    </>
+  }
+/>
     </section>
   );
 }
