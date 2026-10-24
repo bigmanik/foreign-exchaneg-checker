@@ -13,7 +13,15 @@ function RateChecker() {
   const [toCurrency, setToCurrency] = useState("EUR");
 
   // persisted in localStorage, owned here, badges read from here
-  const [favourites, setFavourites] = useLocalStorage("fx_favorites", []);
+ 
+
+  const normalizeFavs = (raw) =>
+  (Array.isArray(raw) ? raw : []).map((f) =>
+    typeof f === "string" ? { from: f.split("/")[0], to: f.split("/")[1] } : f
+  );
+
+const [favourites, setFavourites] = useLocalStorage("fx_favorites", [], normalizeFavs);
+
   const [log, setLog] = useLocalStorage("fx_log", []);
 
   const [range, setRange] = useState("1M");
@@ -31,19 +39,33 @@ function RateChecker() {
   // const pair = `${fromCurrency}/${to}`;
  
   const pair = `${fromCurrency}/${toCurrency}`;
-  const isFavorited = favourites.includes(pair);
+  
+  const isFavorited = favourites.some(
+  (f) => f.from === fromCurrency && f.to === toCurrency
+);
 
-  const handleToggleFavorite = () => {
-    setFavourites((prev) =>
-      prev.includes(pair)
-        ? prev.filter((p) => p !== pair)
-        : [...prev, pair]
-    );
-  };
+const handleToggleFavorite = () => {
+  setFavourites((prev) =>
+    isFavorited
+      ? prev.filter((f) => !(f.from === fromCurrency && f.to === toCurrency))
+      : [...prev, { from: fromCurrency, to: toCurrency }]
+  );
+};
+
+const loadPair = (p) => {
+  setFromCurrency(p.from);
+  setToCurrency(p.to);
+};
+
+const clearLog = () => setLog([]);
 
   const handleLog = (entry) => {
     setLog((prev) => [entry, ...prev].slice(0, 50)); // newest first, cap 50
   };
+
+  const handleRemovePair = (p) => {
+  setFavourites((prev) => prev.filter((f) => !(f.from === p.from && f.to === p.to)));
+};
 
   return (
     <section className="mx-auto mt-15 w-full max-w-4xl px-4">
@@ -67,6 +89,9 @@ function RateChecker() {
     <Tabs
   favourites={favourites}
   log={log}
+  onLoadPair={loadPair}
+  onRemovePair={handleRemovePair}   // ← add this
+  onClearLog={clearLog}
   history={
     <>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
