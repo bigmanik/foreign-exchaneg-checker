@@ -1,6 +1,14 @@
 import { useState } from "react";
+import CompareTable from "./CompareTable";
+import FavoritesList from "./FavouriteList";
 
-export default function Tabs({ favourites, log, history, onLoadPair, onRemovePair, onClearLog }) {
+// export default function Tabs({ favourites, log, history, onLoadPair, onRemovePair, onClearLog }) 
+export default function Tabs({
+  favourites, log, history,
+  from, amount, onTogglePair,
+  onSelectPair, onRemoveFavourite, onClearLog,
+}) 
+{
   const [active, setActive] = useState("HISTORY");
 
   const tabs = [
@@ -37,9 +45,16 @@ export default function Tabs({ favourites, log, history, onLoadPair, onRemovePai
       <div className="mt-6">
         {active === "HISTORY" && history}
 
-        {active === "COMPARE" && <div>{/* your Compare panel */}</div>}
+       {active === "COMPARE" && (
+  <CompareTable
+    from={from}
+    amount={amount}
+    favourites={favourites}
+    onTogglePair={onTogglePair}
+  />
+)}
 
-        {active === "FAVORITES" && (
+        {/* {active === "FAVORITES" && (
           favourites.length === 0 ? (
             <p className="font-mono text-sm text-zinc-500">NO FAVOURITES YET</p>
           ) : (
@@ -47,13 +62,15 @@ export default function Tabs({ favourites, log, history, onLoadPair, onRemovePai
               {favourites.map((f) => (
                 <li key={`${f.from}-${f.to}`} className="flex items-center justify-between py-3">
                   <button
-                    onClick={() => onLoadPair(f)}
+                  
+                    onClick={() => onSelectPair(f)}
                     className="font-mono text-sm text-white hover:text-lime-400"
                   >
                     {f.from} → {f.to}
                   </button>
                   <button
-                    onClick={() => onRemovePair(f)}
+                  
+                    onClick={() => onRemoveFavourite(f)}
                     className="text-xs text-zinc-500 hover:text-red-400"
                   >
                     REMOVE
@@ -62,7 +79,19 @@ export default function Tabs({ favourites, log, history, onLoadPair, onRemovePai
               ))}
             </ul>
           )
-        )}
+        )} */}
+
+        {active === "FAVORITES" && (
+  favourites.length === 0 ? (
+    <p className="font-mono text-sm text-zinc-500">NO FAVOURITES YET</p>
+  ) : (
+    <FavoritesList
+      favourites={favourites}
+      onSelectPair={onSelectPair}
+      onRemoveFavourite={onRemoveFavourite}
+    />
+  )
+)}
 
         {active === "LOG" && (
           <>

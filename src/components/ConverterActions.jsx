@@ -4,7 +4,7 @@ function ConverterActions({
   amount,
   rate,
   result,
-  isFavorited,      // ← was isFav, now matches what RateChecker passes
+  isFavorited,      
   onToggleFavorite,
   onLog,
 }) {
@@ -26,8 +26,8 @@ function ConverterActions({
 
   return (
     <div className="flex gap-2">
-      <button
-        onClick={onToggleFavorite}
+     <button
+  onClick={() => onToggleFavorite({ from, to })}
         className={`${btn} ${
           isFavorited
             ? "border-[#c8f542] bg-[#c8f542] text-black"

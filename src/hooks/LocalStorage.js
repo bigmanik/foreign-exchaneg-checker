@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
 
-export function useLocalStorage(key, initialValue) {
-  // lazy initializer: read once on mount, same as your `load()` did
+export function useLocalStorage(key, initialValue, normalize) {
   const [value, setValue] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem(key)) ?? initialValue;
+      const stored = JSON.parse(localStorage.getItem(key)) ?? initialValue;
+      return normalize ? normalize(stored) : stored;
     } catch {
       return initialValue;
     }
   });
 
-  // mirror every change to localStorage
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);

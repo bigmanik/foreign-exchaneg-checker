@@ -44,18 +44,25 @@ const [favourites, setFavourites] = useLocalStorage("fx_favorites", [], normaliz
   (f) => f.from === fromCurrency && f.to === toCurrency
 );
 
-const handleToggleFavorite = () => {
+// const handleToggleFavorite = () => {
+//   setFavourites((prev) =>
+//     isFavorited
+//       ? prev.filter((f) => !(f.from === fromCurrency && f.to === toCurrency))
+//       : [...prev, { from: fromCurrency, to: toCurrency }]
+//   );
+// };
+const handleTogglePair = (p) => {
   setFavourites((prev) =>
-    isFavorited
-      ? prev.filter((f) => !(f.from === fromCurrency && f.to === toCurrency))
-      : [...prev, { from: fromCurrency, to: toCurrency }]
+    prev.some((f) => f.from === p.from && f.to === p.to)
+      ? prev.filter((f) => !(f.from === p.from && f.to === p.to))
+      : [...prev, { from: p.from, to: p.to }]
   );
 };
 
-const loadPair = (p) => {
-  setFromCurrency(p.from);
-  setToCurrency(p.to);
-};
+// const loadPair = (p) => {
+//   setFromCurrency(p.from);
+//   setToCurrency(p.to);
+// };
 
 const clearLog = () => setLog([]);
 
@@ -63,10 +70,27 @@ const clearLog = () => setLog([]);
     setLog((prev) => [entry, ...prev].slice(0, 50)); // newest first, cap 50
   };
 
-  const handleRemovePair = (p) => {
-  setFavourites((prev) => prev.filter((f) => !(f.from === p.from && f.to === p.to)));
+//   const handleRemovePair = (p) => {
+//   setFavourites((prev) => prev.filter((f) => !(f.from === p.from && f.to === p.to)));
+// };
+// const loadPair = (p) => {
+//   setFromCurrency(p.from);
+//   setToCurrency(p.to);
+//   window.scrollTo({ top: 0, behavior: "smooth" });
+// };
+
+
+const handleRemovePair = (p) => {
+  setFavourites((prev) =>
+    prev.filter((f) => !(f.from === p.from && f.to === p.to))
+  );
 };
 
+const loadPair = (p) => {
+  setFromCurrency(p.from);
+  setToCurrency(p.to);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
   return (
     <section className="mx-auto mt-15 w-full max-w-4xl px-4">
       <h2 className="mb-4 font-mono text-lg tracking-widest text-white">
@@ -82,15 +106,19 @@ const clearLog = () => setLog([]);
           onFromCurrencyChange={setFromCurrency}
           onToCurrencyChange={setToCurrency}
           isFavorited={isFavorited}
-          onToggleFavorite={handleToggleFavorite}
+          onToggleFavorite={handleTogglePair}
           onLog={handleLog}
         />
       </div>
-    <Tabs
+      
+  <Tabs
   favourites={favourites}
   log={log}
-  onLoadPair={loadPair}
-  onRemovePair={handleRemovePair}   // ← add this
+  from={fromCurrency}
+  amount={amount}
+  onTogglePair={handleTogglePair}
+  onSelectPair={loadPair}
+  onRemoveFavourite={handleRemovePair}
   onClearLog={clearLog}
   history={
     <>
@@ -110,7 +138,9 @@ const clearLog = () => setLog([]);
       </div>
     </>
   }
+
 />
+
     </section>
   );
 }
