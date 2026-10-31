@@ -69,7 +69,29 @@ Your users should be able to:
 
 ### Screenshot
 
-![](./src/assets/homepic.png)
+![](./src/assets/forrm.png)
 
 ### Links
+- Solution URL: ( https://www.frontendmentor.io/solutions/react-js-tailwindcss-vite-claude-kimi-chatgpt-ylTxmhrJ4U)
+-Live Site URL: (https://foreign-exchaneg-checker.vercel.app/)
 
+## My process
+
+-React js
+-TailwindCSS
+-Vite Build tool
+
+
+### What I learned
+
+I familiarized myself with using react js and improve the manner at which i can use it in a real life project like this one, I also learned more about working with Application Programming Interface(API).
+
+### AI Collaboration
+
+- Tools I used ( ChatGPT, Claude, Kimi)
+- Use them for (debugging, generating boilerplate, brainstorming solutions)
+
+## Author
+
+ Frontend Mentor - [@bigmanik](https://www.frontendmentor.io/profile/bigmanik)
+- Twitter - [@bigmanik_igb](https://www.twitter.com/bigmanik_igb)
