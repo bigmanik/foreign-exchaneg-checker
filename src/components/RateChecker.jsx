@@ -44,13 +44,7 @@ const [favourites, setFavourites] = useLocalStorage("fx_favorites", [], normaliz
   (f) => f.from === fromCurrency && f.to === toCurrency
 );
 
-// const handleToggleFavorite = () => {
-//   setFavourites((prev) =>
-//     isFavorited
-//       ? prev.filter((f) => !(f.from === fromCurrency && f.to === toCurrency))
-//       : [...prev, { from: fromCurrency, to: toCurrency }]
-//   );
-// };
+
 const handleTogglePair = (p) => {
   setFavourites((prev) =>
     prev.some((f) => f.from === p.from && f.to === p.to)
@@ -59,25 +53,17 @@ const handleTogglePair = (p) => {
   );
 };
 
-// const loadPair = (p) => {
-//   setFromCurrency(p.from);
-//   setToCurrency(p.to);
-// };
+
 
 const clearLog = () => setLog([]);
+
+const deleteLogEntry = (id) =>
+  setLog((prev) => prev.filter((e) => e.id !== id));
 
   const handleLog = (entry) => {
     setLog((prev) => [entry, ...prev].slice(0, 50)); // newest first, cap 50
   };
 
-//   const handleRemovePair = (p) => {
-//   setFavourites((prev) => prev.filter((f) => !(f.from === p.from && f.to === p.to)));
-// };
-// const loadPair = (p) => {
-//   setFromCurrency(p.from);
-//   setToCurrency(p.to);
-//   window.scrollTo({ top: 0, behavior: "smooth" });
-// };
 
 
 const handleRemovePair = (p) => {
@@ -120,6 +106,7 @@ const loadPair = (p) => {
   onSelectPair={loadPair}
   onRemoveFavourite={handleRemovePair}
   onClearLog={clearLog}
+   onDeleteLogEntry={deleteLogEntry}
   history={
     <>
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">

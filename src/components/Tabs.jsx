@@ -1,12 +1,13 @@
 import { useState } from "react";
 import CompareTable from "./CompareTable";
 import FavoritesList from "./FavouriteList";
+import LogList from "./LogList";
 
 // export default function Tabs({ favourites, log, history, onLoadPair, onRemovePair, onClearLog }) 
 export default function Tabs({
   favourites, log, history,
   from, amount, onTogglePair,
-  onSelectPair, onRemoveFavourite, onClearLog,
+  onSelectPair, onRemoveFavourite, onClearLog, onDeleteLogEntry,
 }) 
 {
   const [active, setActive] = useState("HISTORY");
@@ -93,7 +94,7 @@ export default function Tabs({
   )
 )}
 
-        {active === "LOG" && (
+        {/* {active === "LOG" && (
           <>
             <div className="mb-3 flex justify-end">
               <button onClick={onClearLog} className="font-mono text-xs text-zinc-500 hover:text-red-400">
@@ -117,7 +118,15 @@ export default function Tabs({
               </ul>
             )}
           </>
-        )}
+        )} */}
+
+        {active === "LOG" && (
+  <LogList
+    log={log}
+    onClearLog={onClearLog}
+    onDeleteLogEntry={onDeleteLogEntry}
+  />
+)}
       </div>
     </div>
   );

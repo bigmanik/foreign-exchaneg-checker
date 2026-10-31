@@ -6,9 +6,19 @@ export function formatAmount(value) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   });
+}
 
-  function timeAgo(timestamp, now = Date.now()) {
+// Formats a rate for display: 0.85302 → "0.8530" (4 decimals like the design)
+export function formatRate(rate) {
+  const num = Number(rate);
+  return Number.isFinite(num) ? num.toFixed(4) : "—";
+}
+
+// "just now", "42s ago", "5m ago", "3h ago", "2d ago", then a plain date
+export function timeAgo(timestamp, now = Date.now()) {
   const t = new Date(timestamp).getTime(); // works for numbers and ISO strings
+  if (!Number.isFinite(t)) return "";
+
   const s = Math.max(0, Math.floor((now - t) / 1000));
 
   if (s < 10) return "just now";
@@ -24,14 +34,4 @@ export function formatAmount(value) {
   if (d < 7) return `${d}d ago`;
 
   return new Date(t).toLocaleDateString();
-}
-}
-
-// Formats a rate for display: 0.85302 → "0.8530" (4 decimals like the design)
-// export function formatRate(rate) {
-//   return Number(rate).toFixed(4);
-// }
-export function formatRate(rate) {
-  const num = Number(rate);
-  return Number.isFinite(num) ? num.toFixed(4) : "—";
 }
