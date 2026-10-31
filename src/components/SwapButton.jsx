@@ -1,3 +1,5 @@
+import exchangeIcon from "../assets/icon-exchange.svg";
+
 function SwapButton({ onClick }) {
   return (
     <button
@@ -7,8 +9,7 @@ function SwapButton({ onClick }) {
                  border border-white/10 bg-[#26262b] text-gray-300
                  transition-colors hover:border-[#c8f542]/40 hover:text-[#c8f542]"
     >
-     
-     <img src="/src/assets/icon-exchange.svg" alt="swap btn" />
+      <img src={exchangeIcon} alt="" />
     </button>
   );
 }
